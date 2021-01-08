@@ -25,7 +25,7 @@
 
   <groupId>com.github.stephenc.continuous</groupId>
   <artifactId>dependency-version-maven-plugin</artifactId>
-  <version>1.x-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>maven-plugin</packaging>
 
   <name>Dependency Version Maven Plugin</name>
@@ -57,7 +57,7 @@
     <connection>scm:git:https://github.com/stephenc/dependency-version-maven-plugin.git</connection>
     <developerConnection>scm:git:git@github.com:stephenc/dependency-version-maven-plugin.git</developerConnection>
     <url>http://github.com/stephenc/dependency-version-maven-plugin/tree/master/</url>
-    <tag>HEAD</tag>
+    <tag>dependency-version-maven-plugin-1.1</tag>
   </scm>
   <issueManagement>
     <system>github</system>
