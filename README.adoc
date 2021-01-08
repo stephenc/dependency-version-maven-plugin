@@ -1,0 +1,49 @@
+== Dependency Version Maven Plugin
+
+A plugin that sets properties to the resolved versions of project dependencies.
+
+=== Use-case
+
+Your project depends on something with a transitive dependency.
+You need to know the version of that transitive dependency, but you do not want to hard-code the version in your project as you are purely relying on it being controlled by the dependency that is pulling it in transitively.
+
+For example, if you depend on `jackson-dataformat-yaml` that will pull in a transitive dependency on `snakeyaml`, your code's sanity checks may want to complain if your code is run with a different version of `snakeyaml`.
+
+=== How to use
+
+Add an execution of the plugin to your project and the properties you define will be available for resource filtering as well as other Mojo executions after this plugin has executed, e.g.
+
+[source,xml]
+----
+...
+    <plugins>
+      <plugin>
+        <groupId>com.github.stephenc.continuous</groupId>
+        <artifactId>dependency-version-maven-plugin</artifactId>
+        <version>...</version> <1>
+        <executions>
+          <execution>
+            <goals>
+              <goal>set</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <property> <2>
+                  <name>snakeyamlVersion</name> <3>
+                  <!-- groupId>org.yaml</groupId--> <4>
+                  <artifactId>snakeyaml</artifactId> <5>
+                </property>
+              </properties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+...
+----
+<1> Always specify the version of this plugin (though better is to use `pluginManagement` to specify it)
+<2> You can set multiple properties if you need to
+<3> You must specify the name of each property you want to set.
+Because you will most likely be using these properties in resource filtering, recommendation is not to use a name containing a `.` as there are some unexpected gotcha's when filtering resources with property names that contain a `.`.
+<4> If there are multiple dependencies with the target `artifactId` and different `groupId` then you will need to specify the target groupId.
+<5> You must specify the `artifactId` of the dependency who's version you wish to capture.
